@@ -7,7 +7,7 @@ export default function appendErrorItem(log: LogItem[], error: Error) {
     ...log,
     {
       id: uniqueID(),
-      message: error.message,
+      message: error?.message ?? "An unknown error has occured.",
       jobName: "system",
       timestamp: timestamp(),
       emit: true,
