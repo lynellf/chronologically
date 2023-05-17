@@ -25,16 +25,17 @@ export function startJobs(type: "sync" | "async" = "sync") {
 
       jobProcess.stdout?.on(
         "data",
-        (data) =>
+        (data) => {
           sendEvent({
             type: "JOB_MESSAGE",
             data: {
               message: data.toString(),
               jobName,
-              emit: job.messageForwarding?.includes("message"),
+              emit: job.messageForwarding?.includes("message") ?? true,
               timestamp: timestamp(),
             },
-          } as MessageEvent),
+          } as MessageEvent);
+        },
       );
 
       jobProcess.stderr?.on("data", (data) =>
@@ -43,7 +44,7 @@ export function startJobs(type: "sync" | "async" = "sync") {
           data: {
             message: data.toString(),
             jobName,
-            emit: job.messageForwarding?.includes("warning"),
+            emit: job.messageForwarding?.includes("warning") ?? false,
             timestamp: timestamp(),
           },
         } as WarningEvent));
