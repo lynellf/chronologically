@@ -1,6 +1,6 @@
 {
   "name": "chronologically",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A task runner. Do not use. Yet.",
   "main": "dist/main.js",
   "scripts": {
