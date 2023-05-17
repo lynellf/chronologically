@@ -2,7 +2,7 @@
 import type { Context, Events } from "./types";
 import { createMachine, interpret } from "xstate";
 import { CWD } from "./utils/constants";
-import { hasNoAsyncJobs } from "./guards";
+import { hasNoAsyncTasks } from "./guards";
 import {
   appendErrorMessage,
   appendMessage,
@@ -65,9 +65,9 @@ const chronosMachine = createMachine({
         ],
       },
       on: {
-        TASK_MESSAGE: {},
-        TASK_WARNING: {},
-        TASK_CLOSE: {
+        JOB_MESSAGE: {},
+        JOB_WARNING: {},
+        JOB_CLOSE: {
           target: "Closed",
         },
       },
@@ -79,7 +79,7 @@ const chronosMachine = createMachine({
     "Polling Servers": {
       entry: ["appendMessage", "printMessage"],
       invoke: {
-        src: "pollServers",
+        src: "pollResources",
         onDone: [
           {
             target: "Starting Async Jobs",
@@ -92,15 +92,15 @@ const chronosMachine = createMachine({
         ],
       },
       on: {
-        TASK_MESSAGE: {
+        JOB_MESSAGE: {
           target: "Polling Servers",
           internal: false,
         },
-        TASK_WARNING: {
+        JOB_WARNING: {
           target: "Polling Servers",
           internal: false,
         },
-        TASK_CLOSE: {
+        JOB_CLOSE: {
           target: "Closed",
         },
       },
@@ -124,10 +124,16 @@ const chronosMachine = createMachine({
     Running: {
       entry: ["appendMessage", "printMessage"],
       on: {
-        TASK_MESSAGE: {},
-        TASK_WARNING: {},
-        TASK_CLOSE: {
-          target: "Error",
+        JOB_MESSAGE: {
+          target: "Running",
+          internal: false,
+        },
+        JOB_WARNING: {
+          target: "Running",
+          internal: false,
+        },
+        JOB_CLOSE: {
+          target: "Closed",
         },
       },
     },
@@ -152,7 +158,7 @@ const chronosMachine = createMachine({
     saveLog,
   },
   guards: {
-    hasNoAsyncJobs,
+    hasNoAsyncTasks,
   },
   services: {
     startSyncJobs: startJobs("sync"),
