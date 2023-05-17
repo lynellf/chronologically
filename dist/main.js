@@ -11,6 +11,7 @@ const defaultConfig = {
     jobs: [],
 };
 const chronosMachine = (0, xstate_1.createMachine)({
+    predictableActionArguments: true,
     id: "Chronos Machine",
     context: {
         config: defaultConfig,
@@ -135,8 +136,10 @@ const chronosMachine = (0, xstate_1.createMachine)({
         setConfiguration: actions_1.setConfiguration,
         appendMessage: actions_1.appendMessage,
         printMessage: actions_1.printMessage,
-        endJobs: actions_1.endJobs,
+        endTasks: actions_1.endTasks,
         printErrorMessage: actions_1.printErrorMessage,
+        appendErrorMessage: actions_1.appendErrorMessage,
+        saveLog: actions_1.saveLog,
     },
     guards: {
         hasNoAsyncJobs: guards_1.hasNoAsyncJobs,

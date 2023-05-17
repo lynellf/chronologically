@@ -4,10 +4,12 @@ import { createMachine, interpret } from "xstate";
 import { CWD } from "./utils/constants";
 import { hasNoAsyncJobs } from "./guards";
 import {
+  appendErrorMessage,
   appendMessage,
-  endJobs,
+  endTasks,
   printErrorMessage,
   printMessage,
+  saveLog,
   setConfiguration,
   setError,
 } from "./actions";
@@ -19,6 +21,7 @@ const defaultConfig = {
 };
 
 const chronosMachine = createMachine({
+  predictableActionArguments: true,
   id: "Chronos Machine",
   context: {
     config: defaultConfig,
@@ -143,8 +146,10 @@ const chronosMachine = createMachine({
     setConfiguration,
     appendMessage,
     printMessage,
-    endJobs,
+    endTasks,
     printErrorMessage,
+    appendErrorMessage,
+    saveLog,
   },
   guards: {
     hasNoAsyncJobs,
