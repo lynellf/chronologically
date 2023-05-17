@@ -8,7 +8,7 @@
     "build": "tsc"
   },
   "bin": {
-    "chronologically": "dist/main.js"
+    "chronologically": "./dist/main.js"
   },
   "keywords": [
     "chronologically",
