@@ -92,14 +92,8 @@ const chronosMachine = createMachine({
         ],
       },
       on: {
-        JOB_MESSAGE: {
-          target: "Polling Servers",
-          internal: false,
-        },
-        JOB_WARNING: {
-          target: "Polling Servers",
-          internal: false,
-        },
+        JOB_MESSAGE: {},
+        JOB_WARNING: {},
         JOB_CLOSE: {
           target: "Closed",
         },
