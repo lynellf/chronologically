@@ -1,0 +1,26 @@
+{
+  "jobs": [
+    {
+      "name": "Web Server",
+      "command": "npm",
+      "args": ["run", "serve"],
+      "messageForwarding": ["message", "warning", "error"],
+      "options": {
+        "shell": true
+      }
+    },
+    {
+      "name": "Web Browser",
+      "command": "node",
+      "args": ["launchBrowser.mjs"],
+      "messageForwarding": ["message", "warning", "error"],
+      "options": {
+        "shell": true
+      },
+      "waitOn": {
+        "resources": ["http://127.0.0.1:3000"],
+        "timeout": 10000
+      }
+    }
+  ]
+}
