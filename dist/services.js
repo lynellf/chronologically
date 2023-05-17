@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.importConfig = exports.pollResources = exports.startJobs = void 0;
 const wait_on_1 = __importDefault(require("wait-on"));
 const promises_1 = require("node:fs/promises");
+const path_1 = require("path");
 const startJob_1 = __importDefault(require("./utils/startJob"));
 const timestamp_1 = __importDefault(require("./utils/timestamp"));
 function startJobs(type = "sync") {
@@ -70,7 +71,7 @@ function importConfig(_context, _event) {
             throw new Error("No configuration file path defined as an argument!");
         }
         try {
-            const configRaw = yield (0, promises_1.readFile)(configPath, "utf-8");
+            const configRaw = yield (0, promises_1.readFile)((0, path_1.join)(process.cwd(), configPath), "utf-8");
             return JSON.parse(configRaw);
         }
         catch (error) {
