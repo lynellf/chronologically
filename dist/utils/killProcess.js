@@ -4,3 +4,4 @@ function killProcess() {
     process.kill(process.pid, "SIGTERM");
 }
 exports.default = killProcess;
+//# sourceMappingURL=killProcess.js.map

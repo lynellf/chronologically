@@ -65,8 +65,18 @@ const chronosMachine = createMachine({
         ],
       },
       on: {
-        JOB_MESSAGE: {},
-        JOB_WARNING: {},
+        JOB_MESSAGE: {
+          target: "Starting Sync Jobs",
+          internal: false,
+          actions: ["appendMessage", "printMessage"],
+          cond: () => false,
+        },
+        JOB_WARNING: {
+          target: "Starting Sync Jobs",
+          internal: false,
+          actions: ["appendMessage", "printMessage"],
+          cond: () => false,
+        },
         JOB_CLOSE: {
           target: "Closed",
         },
@@ -92,8 +102,18 @@ const chronosMachine = createMachine({
         ],
       },
       on: {
-        JOB_MESSAGE: {},
-        JOB_WARNING: {},
+        JOB_MESSAGE: {
+          target: "Polling Servers",
+          internal: false,
+          actions: ["appendMessage", "printMessage"],
+          cond: () => false,
+        },
+        JOB_WARNING: {
+          target: "Polling Servers",
+          internal: false,
+          actions: ["appendMessage", "printMessage"],
+          cond: () => false,
+        },
         JOB_CLOSE: {
           target: "Closed",
         },

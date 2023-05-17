@@ -19,3 +19,4 @@ function saveLog(context) {
     });
 }
 exports.default = saveLog;
+//# sourceMappingURL=saveLog.js.map

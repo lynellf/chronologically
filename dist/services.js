@@ -28,25 +28,25 @@ function startJobs(type = "sync") {
             const jobProcess = (0, startJob_1.default)(job);
             const jobName = job.name;
             (_a = jobProcess.stdout) === null || _a === void 0 ? void 0 : _a.on("data", (data) => {
-                var _a;
-                return sendEvent({
+                var _a, _b;
+                sendEvent({
                     type: "JOB_MESSAGE",
                     data: {
                         message: data.toString(),
                         jobName,
-                        emit: (_a = job.messageForwarding) === null || _a === void 0 ? void 0 : _a.includes("message"),
+                        emit: (_b = (_a = job.messageForwarding) === null || _a === void 0 ? void 0 : _a.includes("message")) !== null && _b !== void 0 ? _b : true,
                         timestamp: (0, timestamp_1.default)(),
                     },
                 });
             });
             (_b = jobProcess.stderr) === null || _b === void 0 ? void 0 : _b.on("data", (data) => {
-                var _a;
+                var _a, _b;
                 return sendEvent({
                     type: "JOB_WARNING",
                     data: {
                         message: data.toString(),
                         jobName,
-                        emit: (_a = job.messageForwarding) === null || _a === void 0 ? void 0 : _a.includes("warning"),
+                        emit: (_b = (_a = job.messageForwarding) === null || _a === void 0 ? void 0 : _a.includes("warning")) !== null && _b !== void 0 ? _b : false,
                         timestamp: (0, timestamp_1.default)(),
                     },
                 });
@@ -80,3 +80,4 @@ function importConfig(_context, _event) {
     });
 }
 exports.importConfig = importConfig;
+//# sourceMappingURL=services.js.map

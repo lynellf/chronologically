@@ -4,3 +4,4 @@ function printError(error) {
     console.error(error);
 }
 exports.default = printError;
+//# sourceMappingURL=printError.js.map

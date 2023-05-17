@@ -5,3 +5,4 @@ function timestamp() {
     return now.toISOString();
 }
 exports.default = timestamp;
+//# sourceMappingURL=timestamp.js.map

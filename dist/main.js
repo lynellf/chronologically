@@ -55,9 +55,19 @@ const chronosMachine = (0, xstate_1.createMachine)({
                 ],
             },
             on: {
-                TASK_MESSAGE: {},
-                TASK_WARNING: {},
-                TASK_CLOSE: {
+                JOB_MESSAGE: {
+                    target: "Starting Sync Jobs",
+                    internal: false,
+                    actions: ["appendMessage", "printMessage"],
+                    cond: () => false,
+                },
+                JOB_WARNING: {
+                    target: "Starting Sync Jobs",
+                    internal: false,
+                    actions: ["appendMessage", "printMessage"],
+                    cond: () => false,
+                },
+                JOB_CLOSE: {
                     target: "Closed",
                 },
             },
@@ -69,7 +79,7 @@ const chronosMachine = (0, xstate_1.createMachine)({
         "Polling Servers": {
             entry: ["appendMessage", "printMessage"],
             invoke: {
-                src: "pollServers",
+                src: "pollResources",
                 onDone: [
                     {
                         target: "Starting Async Jobs",
@@ -82,15 +92,19 @@ const chronosMachine = (0, xstate_1.createMachine)({
                 ],
             },
             on: {
-                TASK_MESSAGE: {
+                JOB_MESSAGE: {
                     target: "Polling Servers",
                     internal: false,
+                    actions: ["appendMessage", "printMessage"],
+                    cond: () => false,
                 },
-                TASK_WARNING: {
+                JOB_WARNING: {
                     target: "Polling Servers",
                     internal: false,
+                    actions: ["appendMessage", "printMessage"],
+                    cond: () => false,
                 },
-                TASK_CLOSE: {
+                JOB_CLOSE: {
                     target: "Closed",
                 },
             },
@@ -114,10 +128,16 @@ const chronosMachine = (0, xstate_1.createMachine)({
         Running: {
             entry: ["appendMessage", "printMessage"],
             on: {
-                TASK_MESSAGE: {},
-                TASK_WARNING: {},
-                TASK_CLOSE: {
-                    target: "Error",
+                JOB_MESSAGE: {
+                    target: "Running",
+                    internal: false,
+                },
+                JOB_WARNING: {
+                    target: "Running",
+                    internal: false,
+                },
+                JOB_CLOSE: {
+                    target: "Closed",
                 },
             },
         },
@@ -142,7 +162,7 @@ const chronosMachine = (0, xstate_1.createMachine)({
         saveLog: actions_1.saveLog,
     },
     guards: {
-        hasNoAsyncJobs: guards_1.hasNoAsyncJobs,
+        hasNoAsyncTasks: guards_1.hasNoAsyncTasks,
     },
     services: {
         startSyncJobs: (0, services_1.startJobs)("sync"),
@@ -152,3 +172,4 @@ const chronosMachine = (0, xstate_1.createMachine)({
     },
 });
 (0, xstate_1.interpret)(chronosMachine).start();
+//# sourceMappingURL=main.js.map

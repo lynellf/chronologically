@@ -6,6 +6,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const uniqueID_1 = __importDefault(require("./uniqueID"));
 const timestamp_1 = __importDefault(require("./timestamp"));
 function appendLogItem(log, messageData) {
+    if (!messageData) {
+        return log;
+    }
     const { message, jobName, emit } = messageData;
     return [...log, {
             id: (0, uniqueID_1.default)(),
@@ -16,3 +19,4 @@ function appendLogItem(log, messageData) {
         }];
 }
 exports.default = appendLogItem;
+//# sourceMappingURL=appendLogItem.js.map
