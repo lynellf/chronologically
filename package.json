@@ -1,15 +1,21 @@
 {
   "name": "chronologically",
   "version": "1.0.0",
-  "description": "",
+  "description": "A task runner. Do not use. Yet.",
   "main": "dist/main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "bin": {
+    "chronologically": "dist/main.js"
+  },
+  "keywords": [
+    "chronologically",
+    "task runner"
+  ],
+  "author": "Ezell Frazier",
+  "license": "MIT",
   "dependencies": {
     "@types/wait-on": "^5.3.1",
     "nanoid": "^4.0.2",
