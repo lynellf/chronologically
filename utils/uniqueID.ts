@@ -1,5 +1,5 @@
-import { nanoid } from "nanoid";
+import uniqueid from "uniqueid";
 
 export default function uniqueID(size = 21) {
-  return nanoid(size);
+  return uniqueid()();
 }
