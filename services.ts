@@ -1,6 +1,7 @@
 import { Sender } from "xstate";
 import waitOn from "wait-on";
 import { readFile } from "node:fs/promises";
+import { join } from "path";
 import type {
   CloseEvent,
   Context,
@@ -71,7 +72,7 @@ export async function importConfig(_context: Context, _event: Events) {
   }
 
   try {
-    const configRaw = await readFile(configPath, "utf-8");
+    const configRaw = await readFile(join(process.cwd(), configPath), "utf-8");
     return JSON.parse(configRaw) as Context["config"];
   } catch (error) {
     throw new Error(
