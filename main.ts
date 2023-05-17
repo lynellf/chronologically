@@ -1,3 +1,4 @@
+#!/user/bin/env node
 import type { Context, Events } from "./types";
 import { createMachine, interpret } from "xstate";
 import { CWD } from "./utils/constants";
